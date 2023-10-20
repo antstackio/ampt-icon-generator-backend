@@ -13,6 +13,7 @@
     "express": "^4.18.2"
   },
   "ampt": {
-    "app": "javascript-express-api"
+    "app": "icon-generator-ampt-backend",
+    "org": "sutejbali555024"
   }
 }
