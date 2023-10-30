@@ -1,6 +1,6 @@
 import { http } from "@ampt/sdk";
 import express from "express";
-import imageGeneraterRoute from "./src/imageGenerate.route.js";
+import imageGeneraterRoute from "./src/imageGenerater.route.js";
 
 const app = express();
 
