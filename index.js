@@ -1,31 +1,21 @@
 import { http } from "@ampt/sdk";
-import express, { Router } from "express";
+import express from "express";
+import imageGeneraterRoute from "./src/imageGenerate.route.js";
 
 const app = express();
 
-const api = Router();
+// parse json request body
+app.use(express.json());
 
-api.get("/hello", (req, res) => {
-  return res.status(200).send({ message: "Hello from the public api!" });
+// Mount the imageGeneraterRoute as a middleware using the '/api/image-generater'
+// path prefix. This means that all routes defined in imageGeneraterRoute
+// will be accessible under '/api/image-generater' in the application.
+app.use("/api/image-generater", imageGeneraterRoute);
+
+// Define a route that responds with Not Found when trying
+// to access end points not present
+app.use((req, res) => {
+  res.statusCode(httpStatus.NOT_IMPLEMENTED).send("Route Not Present");
 });
-
-api.get("/greet/:name", (req, res) => {
-  const { name } = req.params;
-
-  if (!name) {
-    return res.status(400).send({ message: "Missing route param for `name`!" });
-  }
-
-  return res.status(200).send({ message: `Hello ${name}!` });
-});
-
-api.post("/submit", async (req, res) => {
-  return res.status(200).send({
-    body: req.body,
-    message: "You just posted data",
-  });
-});
-
-app.use("/api", api);
 
 http.node.use(app);
