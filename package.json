@@ -9,11 +9,18 @@
     "start": "ampt"
   },
   "dependencies": {
+    "@ampt/data": "^1.0.8",
     "@ampt/sdk": "^1.0.0",
+    "@aws-sdk/client-cognito-identity-provider": "^3.441.0",
+    "aws-jwt-verify": "^4.0.0",
+    "axios": "^1.6.0",
     "express": "^4.18.2"
   },
   "ampt": {
     "app": "icon-generator-ampt-backend",
     "org": "sutejbali555024"
-  }
+  },
+  "files": [
+    "*"
+  ]
 }
