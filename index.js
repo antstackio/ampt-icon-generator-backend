@@ -15,7 +15,7 @@ app.use("/api/image-generater", imageGeneraterRoute);
 // Define a route that responds with Not Found when trying
 // to access end points not present
 app.use((req, res) => {
-  res.statusCode(httpStatus.NOT_IMPLEMENTED).send("Route Not Present");
+  res.status(404).send("Route Not Present");
 });
 
 http.node.use(app);
