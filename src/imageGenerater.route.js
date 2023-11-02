@@ -1,15 +1,9 @@
-import express, { Router } from "express";
+import { Router } from "express";
+import imageGeneraterController from "./imageGenerater.controller";
+import authMiddleware from "./middlewares/auth.middleware";
 
 const router = Router();
 
-// dummy route
-router.get("/", async (req, res) => {
-  return res.status(200).send({
-    message: "Response message from get",
-  });
-});
-
-// TODO: define actual routes
-router.post("/");
+router.post("/", authMiddleware.auth, imageGeneraterController.generateImage);
 
 export default router;
