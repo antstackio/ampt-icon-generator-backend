@@ -6,6 +6,7 @@ const imageStorage = storage("images");
 
 // middleware controller function to bookmark image
 const bookmarkImage = async (req, res) => {
+  let validImage;
   try {
     validImage =
       await bookmarkImageValidation.bookmarkImageSchema.validateAsync(req.body);
