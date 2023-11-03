@@ -6,6 +6,10 @@ const router = Router();
 
 router.post("/", authMiddleware.auth, bookmarkImageController.bookmarkImage);
 
-router.get("/", bookmarkImageController.getBookmarkedImageList);
+router.get(
+  "/",
+  authMiddleware.auth,
+  bookmarkImageController.getBookmarkedImageList
+);
 
 export default router;
