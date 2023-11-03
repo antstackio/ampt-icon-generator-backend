@@ -40,7 +40,7 @@ const generateImage = async (req, res) => {
     );
 
     // send image id and image url as success response
-    res.send({ success: false, data: { id: newImageId, imageUrl: imageUrl } });
+    res.send({ success: true, data: { id: newImageId, imageUrl: imageUrl } });
   } catch (error) {
     console.log(error);
     res.status(500).send({ success: false, message: "Internal Server Error" });
