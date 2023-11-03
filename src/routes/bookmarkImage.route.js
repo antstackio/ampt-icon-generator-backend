@@ -12,4 +12,10 @@ router.get(
   bookmarkImageController.getBookmarkedImageList
 );
 
+router.delete(
+  "/:imageId",
+  authMiddleware.auth,
+  bookmarkImageController.deleteBookmarkedImage
+);
+
 export default router;
