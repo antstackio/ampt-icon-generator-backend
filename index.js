@@ -2,11 +2,15 @@ import { http } from "@ampt/sdk";
 import express from "express";
 import imageGeneraterRoute from "./src/routes/imageGenerater.route.js";
 import bookmarkImageRoute from "./src/routes/bookmarkImage.route.js";
+import cors from "cors";
 
 const app = express();
 
 // parse json request body
 app.use(express.json());
+
+// enable CORS
+app.use(cors());
 
 // Mount the imageGeneraterRoute as a middleware using the '/api/image-generater'
 // path prefix. This means that all routes defined in imageGeneraterRoute
