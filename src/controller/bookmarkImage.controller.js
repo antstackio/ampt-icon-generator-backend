@@ -82,11 +82,57 @@ const getBookmarkedImageList = async (req, res) => {
       );
       imageUrlList.push(imageUrl);
     }
-    res.status(201).send({ success: true, imageUrlList: imageUrlList });
+    res.status(200).send({ success: true, imageUrlList: imageUrlList });
   } catch (error) {
     console.log(error);
     res.status(500).send({ success: false, message: "Internal Server Error" });
   }
 };
 
-export default { bookmarkImage, getBookmarkedImageList };
+/**
+ * This is an asynchronous function that deletes a bookmarked image for the currently logged in user.
+ * It fetches the list of bookmarked image IDs from the database using the user's email as a key.
+ * Then, it finds the index of the image ID to be deleted in the bookmarked images list.
+ * If the image ID is found, it is removed from the bookmarked images list and the updated list is saved back to the database.
+ * The function also removes the image from the storage.
+ * If an error occurs during the process, it logs the error and sends a response with a status of 500 (Internal Server Error).
+ *
+ * @param {Object} req - The request object, containing user details and other request parameters.
+ * @param {Object} res - The response object, used to send the response back to the client.
+ */
+const deleteBookmarkedImage = async (req, res) => {
+  let validImage;
+  try {
+    validImage =
+      await bookmarkImageValidation.bookmarkImageSchema.validateAsync(
+        req.params
+      );
+  } catch (error) {
+    // Send Client Error Message
+    res.status(400).send({ success: false, message: error.message });
+    return;
+  }
+
+  try {
+    // get bookmarked images list for logged in user
+    let bookmarkedImages = await data.get(
+      `bookmarkedImageList:${req.user.email}`
+    );
+
+    const index = bookmarkedImages.indexOf(req.params.imageId);
+    bookmarkedImages.splice(index, 1);
+    await data.set(`bookmarkedImageList:${req.user.email}`, bookmarkedImages);
+
+    // delete image from S3
+    await imageStorage.remove(`/generatedImage/${req.body.imageId}`);
+
+    res
+      .status(200)
+      .send({ success: true, message: "Removed Image from Bookmarks" });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({ success: false, message: "Internal Server Error" });
+  }
+};
+
+export default { bookmarkImage, getBookmarkedImageList, deleteBookmarkedImage };
