@@ -3,6 +3,7 @@ import express from "express";
 import imageGeneraterRoute from "./src/routes/imageGenerater.route.js";
 import bookmarkImageRoute from "./src/routes/bookmarkImage.route.js";
 import cors from "cors";
+import imageDeleteTask from "./src/tasks/imageDeleteCron.js";
 
 const app = express();
 
@@ -27,5 +28,8 @@ app.use("/api/bookmark/image", bookmarkImageRoute);
 app.use((req, res) => {
   res.status(404).send("Route Not Present");
 });
+
+// Schedule the image deletion task to run every day
+imageDeleteTask.cron("* * * * ? *", {});
 
 http.node.use(app);

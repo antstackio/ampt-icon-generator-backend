@@ -39,6 +39,15 @@ const generateImage = async (req, res) => {
       `/generatedImage/${newImageId}`
     );
 
+    // get generted image temp store
+    let tempImageList = await data.get("temporaryImageStore");
+    if (!tempImageList) {
+      tempImageList = [];
+    }
+    // add imageId to tempImageList and persist to DB
+    tempImageList.push(newImageId);
+    await data.set("temporaryImageStore", tempImageList);
+
     // send image id and image url as success response
     res.send({ success: true, data: { id: newImageId, imageUrl: imageUrl } });
   } catch (error) {
