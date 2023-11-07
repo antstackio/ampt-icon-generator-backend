@@ -30,6 +30,6 @@ app.use((req, res) => {
 });
 
 // Schedule the image deletion task to run every day
-imageDeleteTask.cron("* * * * ? *", {});
+imageDeleteTask.cron("0 1 * * ? *", {});
 
 http.node.use(app);
