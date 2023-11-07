@@ -30,9 +30,26 @@ const bookmarkImage = async (req, res) => {
     if (!tempImageList) {
       tempImageList = [];
     }
-    const index = tempImageList.indexOf(req.body.imageId);
-    tempImageList.splice(index, 1);
 
+    let imageIndex;
+    let imageData;
+    for (let i = 0; i < tempImageList.length; i++) {
+      if (tempImageList[i].imageId == req.body.imageId) {
+        imageIndex = i;
+        imageData = tempImageList[i];
+        console.log(imageIndex);
+        console.log(imageData);
+        console.log("IN IF");
+      }
+    }
+    console.log(imageIndex);
+    console.log(imageData);
+    if (imageIndex == undefined || imageData == undefined) {
+      res.status(400).send({ success: false, message: "Image Does Not Exist" });
+      return;
+    }
+
+    tempImageList.splice(imageIndex, 1);
     await data.set("temporaryImageStore", tempImageList);
 
     // get bookmarked images list for logged in user
@@ -43,7 +60,7 @@ const bookmarkImage = async (req, res) => {
       bookmarkedImages = [];
     }
     // add imageId to bookmarked list and persist to DB
-    bookmarkedImages.push(req.body.imageId);
+    bookmarkedImages.push(imageData);
     await data.set(`bookmarkedImageList:${req.user.email}`, bookmarkedImages);
     // respond with appropriate message
     res.status(201).send({ success: true, message: "Image Bookmarked" });
@@ -79,7 +96,7 @@ const getBookmarkedImageList = async (req, res) => {
       imageIndex++
     ) {
       let imageExists = await imageStorage.exists(
-        `/generatedImage/${bookmarkedImages[imageIndex]}`
+        `/generatedImage/${bookmarkedImages[imageIndex].imageId}`
       );
       if (!imageExists) {
         continue;
@@ -87,9 +104,13 @@ const getBookmarkedImageList = async (req, res) => {
 
       // download url and add to the list
       let imageUrl = await imageStorage.getDownloadUrl(
-        `/generatedImage/${bookmarkedImages[imageIndex]}`
+        `/generatedImage/${bookmarkedImages[imageIndex].imageId}`
       );
-      imageUrlList.push({ id: bookmarkedImages[imageIndex], value: imageUrl });
+      imageUrlList.push({
+        id: bookmarkedImages[imageIndex].imageId,
+        value: imageUrl,
+        promt: bookmarkedImages[imageIndex].prompt,
+      });
     }
     res.status(200).send(imageUrlList);
   } catch (error) {
@@ -128,12 +149,18 @@ const deleteBookmarkedImage = async (req, res) => {
       `bookmarkedImageList:${req.user.email}`
     );
 
-    const index = bookmarkedImages.indexOf(req.params.imageId);
-    bookmarkedImages.splice(index, 1);
+    let imageIndex;
+    for (let i = 0; i < bookmarkedImages.length; i++) {
+      if (bookmarkedImages[i].imageId == req.params.imageId) {
+        imageIndex = i;
+      }
+    }
+
+    bookmarkedImages.splice(imageIndex, 1);
     await data.set(`bookmarkedImageList:${req.user.email}`, bookmarkedImages);
 
     // delete image from S3
-    await imageStorage.remove(`/generatedImage/${req.body.imageId}`);
+    await imageStorage.remove(`/generatedImage/${req.params.imageId}`);
 
     res
       .status(200)

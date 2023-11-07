@@ -49,7 +49,7 @@ let auth = async (req, res, next) => {
           next();
         });
       } else {
-        return res.statusCode(401).send({
+        return res.status(401).send({
           success: false,
           message: "Unauthorized Access",
         });
