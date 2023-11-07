@@ -80,9 +80,9 @@ const getBookmarkedImageList = async (req, res) => {
       let imageUrl = await imageStorage.getDownloadUrl(
         `/generatedImage/${bookmarkedImages[imageIndex]}`
       );
-      imageUrlList.push(imageUrl);
+      imageUrlList.push({ id: bookmarkedImages[imageIndex], value: imageUrl });
     }
-    res.status(200).send({ success: true, imageUrlList: imageUrlList });
+    res.status(200).send(imageUrlList);
   } catch (error) {
     console.log(error);
     res.status(500).send({ success: false, message: "Internal Server Error" });
