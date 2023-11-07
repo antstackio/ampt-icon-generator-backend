@@ -45,7 +45,7 @@ const generateImage = async (req, res) => {
       tempImageList = [];
     }
     // add imageId to tempImageList and persist to DB
-    tempImageList.push(newImageId);
+    tempImageList.push({ imageId: newImageId, prompt: req.body.prompt });
     await data.set("temporaryImageStore", tempImageList);
 
     // send image id and image url as success response
