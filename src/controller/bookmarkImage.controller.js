@@ -26,6 +26,15 @@ const bookmarkImage = async (req, res) => {
       return;
     }
 
+    let tempImageList = await data.get("temporaryImageStore");
+    if (!tempImageList) {
+      tempImageList = [];
+    }
+    const index = tempImageList.indexOf(req.body.imageId);
+    tempImageList.splice(index, 1);
+
+    await data.set("temporaryImageStore", tempImageList);
+
     // get bookmarked images list for logged in user
     let bookmarkedImages = await data.get(
       `bookmarkedImageList:${req.user.email}`
