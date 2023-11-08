@@ -37,13 +37,8 @@ const bookmarkImage = async (req, res) => {
       if (tempImageList[i].imageId == req.body.imageId) {
         imageIndex = i;
         imageData = tempImageList[i];
-        console.log(imageIndex);
-        console.log(imageData);
-        console.log("IN IF");
       }
     }
-    console.log(imageIndex);
-    console.log(imageData);
     if (imageIndex == undefined || imageData == undefined) {
       res.status(400).send({ success: false, message: "Image Does Not Exist" });
       return;
