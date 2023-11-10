@@ -14,7 +14,7 @@ const generateImage = async (req, res) => {
       headers: {
         "Content-Type": "text/plain",
       },
-      data: req.body.prompt,
+      data: req.body.prompt.replace(/(\r\n|\n|\r)/gm, ""),
       responseType: "arraybuffer",
     };
 
