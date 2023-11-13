@@ -1,9 +1,42 @@
-<mxfile host="app.diagrams.net" modified="2023-11-13T05:34:06.783Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36" version="22.1.0" etag="XzdYtGhNZg_6zaJq4I6-" type="github">
+<mxfile host="app.diagrams.net" modified="2023-11-13T05:41:54.108Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36" etag="Cb0kaX2JcG5eBvTREjIe" version="22.1.0" type="github">
   <diagram name="Page-1" id="smkl9wkI0RQhg8Fnq2xX">
-    <mxGraphModel>
+    <mxGraphModel dx="954" dy="642" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="3300" pageHeight="2339" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
+        <mxCell id="gLeCUQ9iOj2dQYNXgD_D-1" value="Node Express on AMPT" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="440" y="280" width="120" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="gLeCUQ9iOj2dQYNXgD_D-2" value="" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" vertex="1" parent="1">
+          <mxGeometry x="470" y="520" width="60" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="gLeCUQ9iOj2dQYNXgD_D-3" value="AMPT Data" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="455" y="608" width="90" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="gLeCUQ9iOj2dQYNXgD_D-4" value="" style="endArrow=classic;startArrow=classic;html=1;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="500" y="510" as="sourcePoint" />
+            <mxPoint x="500" y="410" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="gLeCUQ9iOj2dQYNXgD_D-5" value="Accessed via&lt;br&gt;&amp;nbsp;AMPT Data Module" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="495" y="443" width="130" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="gLeCUQ9iOj2dQYNXgD_D-6" value="" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" vertex="1" parent="1">
+          <mxGeometry x="710" y="290" width="60" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="gLeCUQ9iOj2dQYNXgD_D-7" value="AMPT Storage&amp;nbsp;&lt;br&gt;File Storage" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="685" y="380" width="110" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="gLeCUQ9iOj2dQYNXgD_D-8" value="" style="endArrow=classic;startArrow=classic;html=1;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="706" y="337" as="sourcePoint" />
+            <mxPoint x="560" y="337" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="596" y="338" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
       </root>
     </mxGraphModel>
   </diagram>
