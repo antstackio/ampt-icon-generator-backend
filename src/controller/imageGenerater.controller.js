@@ -1,25 +1,14 @@
 import axios from "axios";
 import { storage, params } from "@ampt/sdk";
 import { data } from "@ampt/data";
+import { render } from "@ampt/ai";
 
 const imageStorage = storage("images");
 
 // middleware controller function to handle generate image api's
 const generateImage = async (req, res) => {
   try {
-    let config = {
-      method: "post",
-      maxBodyLength: Infinity,
-      url: params("imageGenerateApi") + "Prod/image",
-      headers: {
-        "Content-Type": "text/plain",
-      },
-      data: req.body.prompt.replace(/(\r\n|\n|\r)/gm, ""),
-      responseType: "arraybuffer",
-    };
-
-    // make api request to generate image
-    let response = await axios.request(config);
+    const response = await render(prompt);
 
     // get count of images from the DB to determine next id
     let imageCount = await data.get("imageIdCount");
@@ -30,9 +19,13 @@ const generateImage = async (req, res) => {
     const newImageId = await data.add("imageIdCount", 1);
 
     // store generated image in S3
-    await imageStorage.write(`/generatedImage/${newImageId}`, response.data, {
-      type: "image/jpeg",
-    });
+    await imageStorage.write(
+      `/generatedImage/${newImageId}`,
+      response.arrayBuffer(),
+      {
+        type: "image/jpeg",
+      }
+    );
 
     // get saved images download url
     const imageUrl = await imageStorage.getDownloadUrl(
