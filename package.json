@@ -20,6 +20,7 @@
     "joi": "^17.11.0"
   },
   "ampt": {
+    "runtime": "nodejs18",
     "app": "icon-generator-ampt-backend",
     "org": "sutejbali555024"
   },
