@@ -20,14 +20,13 @@ const generateImage = async (req, res) => {
     }
     const newImageId = await data.add("imageIdCount", 1);
 
+    // get image as a buffer
+    const imageBuffer = await response.arrayBuffer();
+
     // store generated image in S3
-    await imageStorage.write(
-      `/generatedImage/${newImageId}`,
-      response.arrayBuffer(),
-      {
-        type: "image/jpeg",
-      }
-    );
+    await imageStorage.write(`/generatedImage/${newImageId}`, imageBuffer, {
+      type: "image/jpeg",
+    });
 
     // get saved images download url
     const imageUrl = await imageStorage.getDownloadUrl(
