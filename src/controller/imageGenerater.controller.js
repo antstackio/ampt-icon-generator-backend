@@ -9,7 +9,6 @@ const imageStorage = storage("images");
 const generateImage = async (req, res) => {
   try {
     const prompt = req.body.prompt.replace(/(\r\n|\n|\r)/gm, "");
-    console.log(prompt);
     const response = await render(prompt);
 
     // get count of images from the DB to determine next id
